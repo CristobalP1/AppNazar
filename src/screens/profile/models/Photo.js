@@ -1,9 +1,9 @@
-class Photo {
-    constructor(id,name,url){
-        this.id = id,
-        this.name = name,
-        this.url = url
-    }
+class PhotoRequest {
+  constructor(camionero_id, nombre_foto, nombre_archivo) {
+    this.camionero_id = camionero_id;
+    this.nombre_foto = nombre_foto;
+    this.nombre_archivo = nombre_archivo;
+}
 }
 
-export default Photo;
+export default PhotoRequest;

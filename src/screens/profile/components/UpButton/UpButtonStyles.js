@@ -1,21 +1,4 @@
-import { View, Text, TouchableOpacity } from "react-native";
-import React from "react";
-import { FontAwesome } from "@expo/vector-icons";
 import { StyleSheet } from "react-native";
-import { useState } from "react";
-
-const UpButton = (props) => {
-  const { iconName, text, onPress } = props;
-
-  return (
-    <TouchableOpacity onPress={onPress} style={styles.upButton}>
-      <View style={styles.column}>
-        <FontAwesome name={iconName} size={25} color="white" />
-        <Text style={styles.text}>{text}</Text>
-      </View>
-    </TouchableOpacity>
-  );
-};
 
 const styles = StyleSheet.create({
   upButton: {
@@ -50,4 +33,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default UpButton;
+export default styles;

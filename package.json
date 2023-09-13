@@ -4,6 +4,10 @@
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
     "start": "expo start",
+    "start:development": "envsub --env-file env/.env.development app.template.json app.json && expo start",
+    "start:production": "envsub --env-file env/.env.production app.template.json app.json && expo start",
+    "build:development": "envsub --env-file env/.env.development expo build:android",
+    "build:production": "envsub --env-file env/.env.production expo build:android",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web"
@@ -15,7 +19,10 @@
     "@react-navigation/native-stack": "^6.9.13",
     "@react-navigation/stack": "^6.3.17",
     "axios": "^1.5.0",
+    "base-64": "^1.0.0",
+    "buffer": "^6.0.3",
     "expo": "~49.0.8",
+    "expo-constants": "~14.4.2",
     "expo-image-picker": "^14.3.2",
     "expo-status-bar": "~1.6.0",
     "react": "18.2.0",
@@ -26,7 +33,9 @@
     "react-native-vector-icons": "^10.0.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.20.0"
+    "@babel/core": "^7.20.0",
+    "env-cmd": "^10.1.0",
+    "envsub": "^4.1.0"
   },
   "private": true
 }

@@ -1,11 +1,11 @@
 class Employee {
-    constructor(id,name){
-        this.id = id,
-        this.name = name
+    constructor(camionero_id,nombre){
+        this.camionero_id = camionero_id,
+        this.nombre = nombre
     }
 
     static fromApiResponse(data){
-        return new Employee(data.id,data.name)
+        return new Employee(data.camionero_id,data.nombre)
     }
 }
 

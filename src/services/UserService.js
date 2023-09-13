@@ -1,15 +1,17 @@
 import apiClient from "./api"
 
 const getUsers = () => {
-    return apiClient.get('/character')
+    const response = apiClient.get('/camioneros')
+    console.log(response);
+    return response;
 }
 
-const getUser = (id) => {
-    return apiClient.get(`/character/${id}`)
+const getPhotoUser = (id) => {
+    return apiClient.get(`/camioneros/${id}/fotos`)
 }
 
-const upPhoto = () => {
-    return apiClient.post(`users/${id}`)
+const upPhoto = (data) => {
+    return apiClient.post(`/fotos`,data)
 }
 
-export {getUser,getUsers,upPhoto}
+export {getPhotoUser,getUsers,upPhoto}

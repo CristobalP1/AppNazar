@@ -1,6 +1,5 @@
-import { View, Text, Button } from 'react-native'
 import React from 'react'
-import Home from './Home';
+import HomeComponent from './HomeComponent';
 import useDataEmployees from './hooks/useDataEmployees';
 import { getUsers } from '../../services/UserService';
 import Loading from '../../components/common/Loading';
@@ -27,8 +26,9 @@ const HomeContainer = ({navigation}) => {
         )
 
     }
+
   return (
-    <Home data={employes} rutaProfile={navigation}></Home>
+    <HomeComponent data={employes} rutaProfile={navigation}></HomeComponent>
   )
 }
 

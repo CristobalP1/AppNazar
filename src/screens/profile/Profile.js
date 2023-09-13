@@ -1,27 +1,57 @@
-import { View, Text, TextInput, Button } from "react-native";
+import { View, Text, TextInput, Button, Alert } from "react-native";
 import React, { useEffect } from "react";
-import TableProfile from "./components/TableProfile";
+import TableProfile from "./components/TableProfile/TableProfile";
 import { StyleSheet } from "react-native";
-import UpButton from "./components/UpButton";
-import CardProfile from "./components/CardProfile";
+import UpButton from "./components/UpButton/UpButton";
+import CardProfile from "./components/CardProfile/CardProfile";
 import { launchCameraAsync } from "expo-image-picker";
 import { useState } from "react";
-import Photo from "./models/Photo";
+import PhotoRequest from "./models/Photo";
 import { Modal } from "react-native";
+import useUploadPhoto from "./hooks/useUploadPhoto";
+import Loading from "../../components/common/Loading";
 
-const Profile = ({ dataProfile, routeProfile }) => {
+const Profile = ({ dataProfile, routeProfile, reloadData, userParams }) => {
   useEffect(() => {
     routeProfile.setOptions({
       headerBackTitle: "Back",
     });
   }, []);
 
-  const randomValue = Math.floor(Math.random() * 1000) + 1;
-
   const [photoName, setphotoName] = useState(null);
   const [isVisbleModal, setIsVisbleModal] = useState(false);
-  const [tempPhoto, setTempPhoto] = useState([]);
   const [tempRes, setTempRes] = useState([]);
+  const [hasAttemptedUpload, setHasAttemptedUpload] = useState(false);
+  const {
+    isUploading,
+    uploadError,
+    uploadSuccess,
+    uploadPhoto,
+    isRequestFinished,
+  } = useUploadPhoto();
+
+  useEffect(() => {
+    if (uploadSuccess && !isUploading) {
+      console.log("Foto subida");
+      reloadData();
+      closeModal();
+    } else if (uploadError) {
+      console.log("Error en al carga", uploadError);
+    }
+  }, [hasAttemptedUpload]);
+
+  const handleSavePhoto = async (data) => {
+    let uploadData = await uploadPhoto(data);
+    setHasAttemptedUpload(true);
+    return uploadData;
+  };
+
+  const validateNamePhoto = () => {
+    if (!photoName || photoName.length <= 0) {
+      return "El nombre de la foto es necesario";
+    }
+    return null;
+  };
 
   const openModal = () => {
     setIsVisbleModal(true);
@@ -39,7 +69,6 @@ const Profile = ({ dataProfile, routeProfile }) => {
     });
 
     if (resp.canceled) {
-      console.log("cancelado");
       return;
     }
 
@@ -52,11 +81,13 @@ const Profile = ({ dataProfile, routeProfile }) => {
     openModal();
   };
 
-  console.log(photoName);
+  if (isUploading) {
+    <Loading></Loading>;
+  }
 
   return (
     <View style={styles.container}>
-      <CardProfile name={dataProfile.name}></CardProfile>
+      <CardProfile name={userParams.nombre}></CardProfile>
       <View style={{ flexDirection: "row-reverse" }}>
         <UpButton
           iconName="upload"
@@ -67,7 +98,7 @@ const Profile = ({ dataProfile, routeProfile }) => {
       <View>
         <Text style={styles.title}>Archivos</Text>
       </View>
-      <TableProfile data={tempPhoto}></TableProfile>
+      <TableProfile dataPhoto={dataProfile}></TableProfile>
       <Modal
         animationType="slide"
         transparent={false}
@@ -99,14 +130,20 @@ const Profile = ({ dataProfile, routeProfile }) => {
             />
             <Button
               title="Guardar"
-              onPress={() => {
-                const photoData = new Photo(
-                  randomValue,
-                  photoName,
-                  tempRes.uri
-                );
-                setTempPhoto((prevData) => [...prevData, photoData]);
-                closeModal()
+              onPress={async () => {
+                const menssageError = validateNamePhoto();
+
+                if (!menssageError) {
+                  const photoData = new PhotoRequest(
+                    userParams.id,
+                    photoName,
+                    tempRes.uri
+                  );
+                  await handleSavePhoto(photoData);
+                  closeModal();
+                } else {
+                  Alert.alert("Error", menssageError);
+                }
               }}
             ></Button>
           </View>

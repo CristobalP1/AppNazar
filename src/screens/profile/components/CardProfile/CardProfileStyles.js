@@ -1,15 +1,4 @@
-import { View, Text } from 'react-native'
-import React from 'react'
-import { StyleSheet } from 'react-native'
-
-const CardProfile = ({name}) => {
-  return (
-    <View style={styles.card}>
-      <Text style={styles.label}>Conductor:</Text>
-      <Text style={styles.text}>{name}</Text>
-    </View>
-  )
-}
+import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
     card:{
@@ -37,5 +26,4 @@ const styles = StyleSheet.create({
     }
 })
 
-
-export default CardProfile
+export default styles;

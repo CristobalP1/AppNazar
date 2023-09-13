@@ -1,11 +1,15 @@
 import axios from "axios";
+import { API_URL } from "../constants/config";
+import { API_URL_TEST,base64Credentials } from "../constants/config";
 
 const apiClient = axios.create({
-    baseURL:'https://rickandmortyapi.com/api',
+    baseURL: API_URL_TEST,
     timeout:10000,
     headers:{
-        'Content-Type':'application/json'
+        'Content-Type':'application/json',
+        'Authorization': `Basic ${base64Credentials}`
+        
     }
-})
+});
 
 export default apiClient;

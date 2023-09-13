@@ -27,9 +27,9 @@
       "favicon": "./assets/favicon.png"
     },
     "extra": {
-      "apiUrl": "http://192.168.101.2:3000/",
-      "apiUser": "admin",
-      "apiPass": "Cps@246"
+      "apiUrl": "${API_URL}",
+      "apiUser": "${USER_API}",
+      "apiPass": "${USER_PASS}"
     }
   }
 }

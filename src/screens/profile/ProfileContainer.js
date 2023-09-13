@@ -1,6 +1,6 @@
 import { View, Text,Button } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import { getUser } from '../../services/UserService'
+import { getPhotoUser } from '../../services/UserService'
 import Profile from './Profile'
 import useDataProfile from './hooks/useDataProfile'
 import Loading from '../../components/common/Loading'
@@ -10,7 +10,7 @@ const ProfileContainer = ({navigation,route}) => {
     
     const {id} = route.params
 
-    const {dataProfile,error,isLoading,getDataProfile} = useDataProfile(getUser,id)
+    const {dataProfile,error,isLoading,getDataProfile} = useDataProfile(getPhotoUser,id)
 
     if (isLoading) {
         return <Loading></Loading>
@@ -25,7 +25,7 @@ const ProfileContainer = ({navigation,route}) => {
     }
 
   return (
-    <Profile dataProfile={dataProfile} routeProfile={navigation}></Profile>
+    <Profile dataProfile={dataProfile} routeProfile={navigation} reloadData={getDataProfile} userParams={route.params}></Profile>
   )
 }
 

@@ -15,7 +15,7 @@ const useDataEmployees = (getUserApi) => {
 
     try {
       const response = await getUserApi();
-      const employesData = response.data.results.map(Employee.fromApiResponse);
+      const employesData = response.data.map(Employee.fromApiResponse);
       setEmployes(employesData);
     } catch (error) {
       setError(error);

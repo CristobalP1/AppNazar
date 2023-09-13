@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import ProfileEmployee from "../models/ProfileEmployee";
 
-const useDataProfile = (getUsersApi, ...arg) => {
+const useDataProfile = (getPhotoUser, ...arg) => {
   const [dataProfile, setDataProfile] = useState(null);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -12,8 +12,8 @@ const useDataProfile = (getUsersApi, ...arg) => {
     setIsLoading(true);
 
     try {
-      const response = await getUsersApi(...arg);
-      const dataProfileEmployee = ProfileEmployee.fromApiResponse(response.data);
+      const response = await getPhotoUser(...arg);
+      const dataProfileEmployee = ProfileEmployee.fromApiResponsePhoto(response.data);
       setDataProfile(dataProfileEmployee);
     } catch (error) {
       setError(error);
