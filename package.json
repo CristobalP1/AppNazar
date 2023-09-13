@@ -6,8 +6,8 @@
     "start": "expo start",
     "start:development": "envsub --env-file env/.env.development app.template.json app.json && expo start",
     "start:production": "envsub --env-file env/.env.production app.template.json app.json && expo start",
-    "build:development": "envsub --env-file env/.env.development expo build:android app.json && expo start",
-    "build:production": "envsub --env-file env/.env.production expo build:android app.json && expo start",
+    "build:development": "envsub --env-file env/.env.development build:android app.json && expo start",
+    "build:production": "envsub --env-file env/.env.production build:android app.json && expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web"
