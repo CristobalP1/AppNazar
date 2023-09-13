@@ -16,5 +16,4 @@ const UpButton = (props) => {
   );
 };
 
-
 export default UpButton;

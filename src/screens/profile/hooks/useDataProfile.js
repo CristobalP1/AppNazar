@@ -13,7 +13,9 @@ const useDataProfile = (getPhotoUser, ...arg) => {
 
     try {
       const response = await getPhotoUser(...arg);
-      const dataProfileEmployee = ProfileEmployee.fromApiResponsePhoto(response.data);
+      const dataProfileEmployee = ProfileEmployee.fromApiResponsePhoto(
+        response.data
+      );
       setDataProfile(dataProfileEmployee);
     } catch (error) {
       setError(error);

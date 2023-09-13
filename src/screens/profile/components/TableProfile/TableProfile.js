@@ -1,8 +1,9 @@
-import { View, Text, FlatList, Modal, Image } from "react-native";
+import { View, Text, FlatList } from "react-native";
 import React from "react";
 import CustonButton from "../../../../components/common/CustonButton";
 import { useState } from "react";
 import styles from "./TableProfileStyles";
+import ImageModal from "../ImageModal/ImageModal";
 
 const TableProfile = ({ dataPhoto }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -38,23 +39,11 @@ const TableProfile = ({ dataPhoto }) => {
         )}
       ></FlatList>
 
-      <Modal
-        animationType="slide"
-        transparent={false}
-        visible={isModalVisible}
-        onRequestClose={closeImage}
-      >
-        <View style={styles.modalContainer}>
-          <View style={styles.imageModal}>
-            <Image
-              source={{ uri: currentImage }}
-              style={styles.modalImage}
-              resizeMode="contain"
-            />
-            <CustonButton iconName="close" onPress={closeImage} />
-          </View>
-        </View>
-      </Modal>
+      <ImageModal
+        isVisible={isModalVisible}
+        closeImage={closeImage}
+        imageUri={currentImage}
+      ></ImageModal>
     </View>
   );
 };

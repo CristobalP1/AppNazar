@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import Employee from "../models/Employee";
 
-
 const useDataEmployees = (getUserApi) => {
   const [employes, setEmployes] = useState(null);
   const [error, setError] = useState(null);
@@ -11,7 +10,6 @@ const useDataEmployees = (getUserApi) => {
     setEmployes(null);
     setError(null);
     setIsLoading(true);
-
 
     try {
       const response = await getUserApi();

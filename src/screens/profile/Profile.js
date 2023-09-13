@@ -80,6 +80,7 @@ const Profile = ({ dataProfile, routeProfile, reloadData, userParams }) => {
 
     openModal();
   };
+  
 
   if (isUploading) {
     <Loading></Loading>;
