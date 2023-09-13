@@ -8,6 +8,7 @@ import Loading from "../../components/common/Loading";
 import UpButtonContainer from "./components/UpButton/UpButtonContainer";
 import PhotoUpLoadModal from "./components/PhotoUpLoadModal/PhotoUpLoadModal";
 import styles from "./ProfileStyles";
+import { Alert } from "react-native";
 
 const Profile = ({ dataProfile, routeProfile, reloadData, userParams }) => {
   useEffect(() => {
@@ -24,16 +25,15 @@ const Profile = ({ dataProfile, routeProfile, reloadData, userParams }) => {
     uploadError,
     uploadSuccess,
     uploadPhoto,
-    isRequestFinished,
   } = useUploadPhoto();
 
   useEffect(() => {
     if (uploadSuccess && !isUploading) {
-      console.log("Foto subida");
       reloadData();
       closeModal();
+      Alert.alert("Foto Subida con exito");
     } else if (uploadError) {
-      console.log("Error en al carga", uploadError);
+      Alert.alert("Error en subir la foto");
     }
   }, [hasAttemptedUpload]);
 

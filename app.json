@@ -27,7 +27,7 @@
       "favicon": "./assets/favicon.png"
     },
     "extra": {
-      "apiUrl": "http://192.168.101.2:3000/",
+      "apiUrl": "https://backendnazar-production.up.railway.app/",
       "apiUser": "admin",
       "apiPass": "Cps@246"
     }

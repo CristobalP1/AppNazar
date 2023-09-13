@@ -4,9 +4,16 @@ import CustonButton from "../../../../components/common/CustonButton";
 import styles from "./TableEmployeesStyles";
 
 const TableEmployees = ({ data, ruteProfile }) => {
+
+  const sortedData = [...data].sort((a, b) => {
+    if (a.nombre < b.nombre) return -1;
+    if (a.nombre > b.nombre) return 1;
+    return 0;
+  });
+
   return (
     <FlatList
-      data={data}
+      data={sortedData}
       keyExtractor={(item) => item.camionero_id.toString()}
       renderItem={({ item }) => (
         <View style={styles.row}>

@@ -6,8 +6,8 @@
     "start": "expo start",
     "start:development": "envsub --env-file env/.env.development app.template.json app.json && expo start",
     "start:production": "envsub --env-file env/.env.production app.template.json app.json && expo start",
-    "build:development": "envsub --env-file env/.env.development expo build:android",
-    "build:production": "envsub --env-file env/.env.production expo build:android",
+    "build:development": "envsub --env-file env/.env.development expo build:android app.json && expo start",
+    "build:production": "envsub --env-file env/.env.production expo build:android app.json && expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web"
@@ -30,7 +30,8 @@
     "react-native-gesture-handler": "~2.12.0",
     "react-native-safe-area-context": "4.6.3",
     "react-native-screens": "~3.22.0",
-    "react-native-vector-icons": "^10.0.0"
+    "react-native-vector-icons": "^10.0.0",
+    "expo-splash-screen": "~0.20.5"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

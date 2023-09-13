@@ -3,7 +3,6 @@ import { useState } from "react";
 
 const useUploadPhoto = () => {
   const [isUploading, setIsUploading] = useState(false);
-  const [isRequestFinished, setIsRequestFinished] = useState(false);
   const [uploadError, setUploadError] = useState(null);
   const [uploadSuccess, setUploadSuccess] = useState(false);
 
@@ -20,7 +19,6 @@ const useUploadPhoto = () => {
       setUploadError(error);
     } finally {
       setIsUploading(false);
-      setIsRequestFinished(true);
     }
   };
 
@@ -29,7 +27,6 @@ const useUploadPhoto = () => {
     uploadError,
     uploadSuccess,
     uploadPhoto,
-    isRequestFinished,
   };
 };
 

@@ -6,6 +6,7 @@ import ProfileContainer from "../screens/profile/ProfileContainer";
 const Stack = createStackNavigator();
 
 const MainStack = () => {
+
   return (
     <Stack.Navigator
       initialRouteName="Home"
