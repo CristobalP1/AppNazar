@@ -26,7 +26,9 @@ const UpButtonContainer = ({ OpenModalSavePhoto }) => {
       <UpButton
         iconName="upload"
         text="subir archivo"
-        onPress={takePhoto}
+        onPress={async()=>{
+          await takePhoto()
+        }}
       ></UpButton>
     </>
   );

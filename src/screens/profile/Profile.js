@@ -9,6 +9,7 @@ import UpButtonContainer from "./components/UpButton/UpButtonContainer";
 import PhotoUpLoadModal from "./components/PhotoUpLoadModal/PhotoUpLoadModal";
 import styles from "./ProfileStyles";
 import { Alert } from "react-native";
+import { upPhoto } from "../../services/UserService";
 
 const Profile = ({ dataProfile, routeProfile, reloadData, userParams }) => {
   useEffect(() => {
@@ -27,7 +28,17 @@ const Profile = ({ dataProfile, routeProfile, reloadData, userParams }) => {
     uploadPhoto,
   } = useUploadPhoto();
 
-  useEffect(() => {
+  // useEffect(() => {
+  //   if (uploadSuccess && !isUploading) {
+  //     reloadData();
+  //     closeModal();
+  //     Alert.alert("Foto Subida con exito");
+  //   } else if (uploadError) {
+  //     Alert.alert("Error en subir la foto");
+  //   }
+  // }, [hasAttemptedUpload]);
+
+  const ResultData = () => {
     if (uploadSuccess && !isUploading) {
       reloadData();
       closeModal();
@@ -35,12 +46,11 @@ const Profile = ({ dataProfile, routeProfile, reloadData, userParams }) => {
     } else if (uploadError) {
       Alert.alert("Error en subir la foto");
     }
-  }, [hasAttemptedUpload]);
+  }
 
-  const handleSavePhoto = async (data) => {
-    let uploadData = await uploadPhoto(data);
-    setHasAttemptedUpload(true);
-    return uploadData;
+  const handleSavePhoto = () => {
+      closeModal();
+      reloadData();
   };
 
   const openModal = () => {
@@ -52,6 +62,9 @@ const Profile = ({ dataProfile, routeProfile, reloadData, userParams }) => {
   };
 
   const OpenModalSavePhoto = (respDataPhoto) => {
+    if (!respDataPhoto) {
+      return;
+    }
     setTempRes(respDataPhoto);
     openModal();
   };
