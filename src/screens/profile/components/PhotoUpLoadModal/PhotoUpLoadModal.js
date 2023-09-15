@@ -3,15 +3,14 @@ import {
   Text,
   Modal,
   TextInput,
-  Button,
   Alert,
   TouchableOpacity,
 } from "react-native";
 import React from "react";
 import { useState } from "react";
-import PhotoRequest from "../../models/Photo";
 import styles from "./PhotoUpLoadModalStyles";
 import { upPhoto } from "../../../../services/UserService";
+import FormDataModel from "../../models/FormDataModel";
 
 const PhotoUpLoadModal = ({
   isVisible,
@@ -23,59 +22,24 @@ const PhotoUpLoadModal = ({
   const [photoName, setphotoName] = useState(null);
 
   const validateNamePhoto = () => {
-    if (!photoName || photoName.length <= 0) {
+    if (!photoName || photoName.trim().length <= 0) {
       return "El nombre de la foto es necesario";
     }
     return null;
   };
 
 
-  const createFormData = () => {
-
-    if (!tempRes.uri || !photoName || typeof userParams.id !== 'number') {
-      console.log("Faltan datos para subir la foto");
-      return;
-    }
-
-    const data = new FormData();
-  
-    
-    data.append("nombre_archivo", {
-      uri: tempRes.uri,
-      type: "image/jpeg",
-      name: photoName + ".jpg",
-    });
-  
-    data.append("camionero_id", userParams.id);
-    data.append("nombre_foto", photoName);
-  
-    return data;
-  };
-  
-  const handleUpload = async () => {
+  const handleUpload = async (dataFormPhoto) => {
     const errorMessage = validateNamePhoto();
-  
+
     if (errorMessage) {
       Alert.alert("Error", errorMessage);
       return;
     }
-  
-    const formData = createFormData();
-  
-    if (!tempRes.uri || !photoName || typeof userParams.id !== 'number') {
-      console.log("Faltan datos para subir la foto");
-      return;
-  }
 
-  if (!formData) {
-    return Alert.alert("Error", "Hubo un error al cargar los archivos.");
-  }
-  
     try {
-      const responseDta = await upPhoto(formData);
-      console.log(responseDta);
-  
-      onUpload(formData);
+      await upPhoto(dataFormPhoto);
+      onUpload();
       onClose();
       setphotoName("");
     } catch (error) {
@@ -103,7 +67,12 @@ const PhotoUpLoadModal = ({
             />
             <TouchableOpacity
               style={styles.uploadButton}
-              onPress={handleUpload}
+              onPress={async()=>{
+                const formDataModel = new FormDataModel(tempRes, photoName, userParams);
+                const dataForm = formDataModel.createFormData();
+
+                await handleUpload(dataForm)
+              }}
             >
               <Text style={styles.buttonText}>Guardar</Text>
             </TouchableOpacity>

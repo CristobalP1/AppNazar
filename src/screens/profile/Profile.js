@@ -49,7 +49,7 @@ const Profile = ({ dataProfile, routeProfile, reloadData, userParams }) => {
   }
 
   const handleSavePhoto = () => {
-    closeModal();
+      closeModal();
       reloadData();
   };
 
@@ -62,6 +62,9 @@ const Profile = ({ dataProfile, routeProfile, reloadData, userParams }) => {
   };
 
   const OpenModalSavePhoto = (respDataPhoto) => {
+    if (!respDataPhoto) {
+      return;
+    }
     setTempRes(respDataPhoto);
     openModal();
   };

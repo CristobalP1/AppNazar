@@ -4,6 +4,9 @@ import CustonButton from "../../../../components/common/CustonButton";
 import styles from "./ImageModalStyles";
 
 const ImageModal = ({ isVisible, closeImage, imageUri }) => {
+
+  console.log(imageUri);
+
   return (
     <Modal
       animationType="slide"
@@ -14,7 +17,7 @@ const ImageModal = ({ isVisible, closeImage, imageUri }) => {
       <View style={styles.modalContainer}>
         <View style={styles.imageModal}>
           <Image
-            source={imageUri}
+            source={{ uri: `data:image/jpeg;base64,${imageUri}` }}
             style={styles.modalImage}
             resizeMode="contain"
           />

@@ -15,18 +15,13 @@ const TableProfile = ({ dataPhoto }) => {
 
   const loadImage = async (id) => {
       try {
-        const data = await fetchImage(349);
-        // const blob = await data.text();
-        // const formattedData = `data:image/jpeg;base64,${data}`;
-        // console.log('Data recibida:',blob);
-        // setImageData(data);
-        setCurrentImage(`data:image/jpeg;base64,${data}`);
+        const data = await fetchImage(id);
+        setCurrentImage(data.imageBase64);
         setIsModalVisible(true);
       } catch (error) {
         console.error('Error al cargar la imagen:', error);
       }
   };
-
   const openImage = async (id) => {
     await loadImage(id);
   };
