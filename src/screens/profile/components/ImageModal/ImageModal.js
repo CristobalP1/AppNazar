@@ -14,7 +14,7 @@ const ImageModal = ({ isVisible, closeImage, imageUri }) => {
       <View style={styles.modalContainer}>
         <View style={styles.imageModal}>
           <Image
-            source={{ uri: imageUri }}
+            source={imageUri}
             style={styles.modalImage}
             resizeMode="contain"
           />

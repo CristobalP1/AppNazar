@@ -5,12 +5,13 @@ import {
   TextInput,
   Button,
   Alert,
-  TouchableOpacity
+  TouchableOpacity,
 } from "react-native";
 import React from "react";
 import { useState } from "react";
 import PhotoRequest from "../../models/Photo";
 import styles from "./PhotoUpLoadModalStyles";
+import { upPhoto } from "../../../../services/UserService";
 
 const PhotoUpLoadModal = ({
   isVisible,
@@ -28,21 +29,59 @@ const PhotoUpLoadModal = ({
     return null;
   };
 
+
+  const createFormData = () => {
+
+    if (!tempRes.uri || !photoName || typeof userParams.id !== 'number') {
+      console.log("Faltan datos para subir la foto");
+      return;
+    }
+
+    const data = new FormData();
+  
+    
+    data.append("nombre_archivo", {
+      uri: tempRes.uri,
+      type: "image/jpeg",
+      name: photoName + ".jpg",
+    });
+  
+    data.append("camionero_id", userParams.id);
+    data.append("nombre_foto", photoName);
+  
+    return data;
+  };
+  
   const handleUpload = async () => {
     const errorMessage = validateNamePhoto();
+  
     if (errorMessage) {
       Alert.alert("Error", errorMessage);
       return;
     }
+  
+    const formData = createFormData();
+  
+    if (!tempRes.uri || !photoName || typeof userParams.id !== 'number') {
+      console.log("Faltan datos para subir la foto");
+      return;
+  }
 
-    const photoData = new PhotoRequest(
-        userParams.id,
-        photoName,
-        tempRes.uri
-      );
-
-    onUpload(photoData);
-    onClose()
+  if (!formData) {
+    return Alert.alert("Error", "Hubo un error al cargar los archivos.");
+  }
+  
+    try {
+      const responseDta = await upPhoto(formData);
+      console.log(responseDta);
+  
+      onUpload(formData);
+      onClose();
+      setphotoName("");
+    } catch (error) {
+      console.error("Error subiendo la foto:", error);
+      Alert.alert("Error", "Hubo un error al subir la foto.");
+    }
   };
 
   return (
@@ -53,12 +92,8 @@ const PhotoUpLoadModal = ({
         visible={isVisible}
         onRequestClose={onClose}
       >
-        <View
-          style={styles.modalContainer}
-        >
-          <View
-            style={styles.modalStyles}
-          >
+        <View style={styles.modalContainer}>
+          <View style={styles.modalStyles}>
             <Text style={styles.modalTitle}>Ingrese el nombre de la foto</Text>
             <TextInput
               value={photoName}
@@ -66,7 +101,10 @@ const PhotoUpLoadModal = ({
               style={styles.textInput}
               placeholder="Nombre de la foto"
             />
-            <TouchableOpacity style={styles.uploadButton} onPress={handleUpload}>
+            <TouchableOpacity
+              style={styles.uploadButton}
+              onPress={handleUpload}
+            >
               <Text style={styles.buttonText}>Guardar</Text>
             </TouchableOpacity>
           </View>

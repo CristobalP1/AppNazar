@@ -1,17 +1,34 @@
 import { View, Text, FlatList } from "react-native";
 import React from "react";
 import CustonButton from "../../../../components/common/CustonButton";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styles from "./TableProfileStyles";
 import ImageModal from "../ImageModal/ImageModal";
+import { fetchImage } from "../../../../services/UserService";
 
 const TableProfile = ({ dataPhoto }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [currentImage, setCurrentImage] = useState(null);
+  const [imageData, setImageData] = useState(null);
+  const [fotoId, setFotoId] = useState(null);
 
-  const openImage = (uri) => {
-    setCurrentImage(uri);
-    setIsModalVisible(true);
+
+  const loadImage = async (id) => {
+      try {
+        const data = await fetchImage(349);
+        // const blob = await data.text();
+        // const formattedData = `data:image/jpeg;base64,${data}`;
+        // console.log('Data recibida:',blob);
+        // setImageData(data);
+        setCurrentImage(`data:image/jpeg;base64,${data}`);
+        setIsModalVisible(true);
+      } catch (error) {
+        console.error('Error al cargar la imagen:', error);
+      }
+  };
+
+  const openImage = async (id) => {
+    await loadImage(id);
   };
 
   const closeImage = () => {
@@ -32,7 +49,7 @@ const TableProfile = ({ dataPhoto }) => {
               style={styles.button}
               iconName="image"
               onPress={() => {
-                openImage(item.nombre_archivo);
+                openImage(item.foto_id);
               }}
             ></CustonButton>
           </View>

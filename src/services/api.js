@@ -1,5 +1,4 @@
 import axios from "axios";
-import { API_URL } from "../constants/config";
 import { API_URL_TEST, base64Credentials } from "../constants/config";
 
 const apiClient = axios.create({

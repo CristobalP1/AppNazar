@@ -6,8 +6,8 @@
     "start": "expo start",
     "start:development": "envsub --env-file env/.env.development app.template.json app.json && expo start",
     "start:production": "envsub --env-file env/.env.production app.template.json app.json && expo start",
-    "build:development": "envsub --env-file env/.env.development build:android app.json && expo start",
-    "build:production": "envsub --env-file env/.env.production build:android app.json && expo start",
+    "build:development": "envsub --env-file env/.env.development app.template.json app.json && eas build -p android && expo start",
+    "build:production": "envsub --env-file env/.env.production app.template.json app.json && eas build -p android && expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web"
@@ -24,6 +24,7 @@
     "expo": "~49.0.8",
     "expo-constants": "~14.4.2",
     "expo-image-picker": "^14.3.2",
+    "expo-splash-screen": "~0.20.5",
     "expo-status-bar": "~1.6.0",
     "react": "18.2.0",
     "react-native": "0.72.4",
@@ -31,7 +32,7 @@
     "react-native-safe-area-context": "4.6.3",
     "react-native-screens": "~3.22.0",
     "react-native-vector-icons": "^10.0.0",
-    "expo-splash-screen": "~0.20.5"
+    "rn-fetch-blob": "^0.12.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
